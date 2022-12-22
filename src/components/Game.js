@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Board from "./Board";
+import HistoryCard from "./HistoryCard";
 
 function Game() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null);
+  const [count, setCount] = useState(0);
 
   //Declaring a Winner
   useEffect(() => {
@@ -42,8 +44,13 @@ function Game() {
   const handleClick = (i) => {
     const singleSquares = squares.slice();
 
+    if (calculateWinner(singleSquares) || singleSquares[i]) {
+      return;
+    }
+
     singleSquares[i] = xIsNext ? "X" : "O";
     setSquares(singleSquares);
+    setCount(count + 1);
     setXIsNext((value) => !value);
   };
 
@@ -53,12 +60,18 @@ function Game() {
     setXIsNext(true);
   };
 
+  //Set Count
+  // const handleCount = () => {
+  //   setCount(count + 1);
+  // };
+
   return (
     <div className="main">
       <h2 className="result">Winner is: {winner ? winner : "N/N"}</h2>
       <div className="game">
         <span className="player">Next player is: {xIsNext ? "X" : "O"}</span>
         <Board squares={squares} handleClick={handleClick} />
+        <HistoryCard count={count} handleRestart={handleRestart} />
       </div>
       <button onClick={handleRestart} className="restart-btn">
         Restart
