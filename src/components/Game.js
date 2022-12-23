@@ -89,8 +89,10 @@ function Game() {
     <div className="main">
       <h2 className="result">Winner is: {winner ? winner : "N/N"}</h2>
       <div className="game">
-        <span className="player">Next player is: {xIsNext ? "X" : "O"}</span>
-        <Board squares={history[stepNum].squares} handleClick={handleClick} />
+        <div className="left-side">
+          <span className="player">Next player is: {xIsNext ? "X" : "O"}</span>
+          <Board squares={history[stepNum].squares} handleClick={handleClick} />
+        </div>
         <History history={history} undoMove={undoMove} />
       </div>
       <button onClick={handleRestart} className="restart-btn">

@@ -3,8 +3,8 @@ import React from "react";
 function History({ history, undoMove }) {
   return (
     <>
-      <div className="history-container">
-        <h3>History</h3>
+      <div className="history">
+        <h4>History</h4>
         <ul>
           {Array.isArray(history)
             ? history.map((step, move) => {
